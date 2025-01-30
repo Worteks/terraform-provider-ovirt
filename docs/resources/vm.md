@@ -44,6 +44,7 @@ resource "ovirt_vm" "test" {
 - `huge_pages` (Number) Sets the HugePages setting for the VM. Must be one of: 2048, 1048576
 - `initialization_custom_script` (String) Custom script that passed to VM during initialization.
 - `initialization_hostname` (String) hostname that is set during initialization.
+- `initialization_nic` (Block) network configuration to be set during initialization. (see [below for nested schema](#nestedblock--initialization_nic))
 - `instance_type_id` (String) Defines the VM instance type ID overrides the hardware parameters of the created VM.
 - `maximum_memory` (Number) Maximum memory to assign to the VM in the memory policy in bytes.
 - `memory` (Number) Memory to assign to the VM in bytes.
@@ -75,6 +76,31 @@ Optional:
 - `format` (String) Disk format for the override. Can be 'raw' or 'cow'.
 - `provisioning` (String) Provisioning the disk. Must be one of sparse,non-sparse
 - `storage_domain_id` (String) ID of the storage domain where the new disk will be placed.
+
+<a id="nestedblock--initialization_nic"></a>
+### Nested Schema for `initialization_nic`
+
+Required:
+
+- `name` (String) Name of network interface to configure
+- `ipv4` (Block) IPv4 address information (see [below for nested schema](#nestedblock--ip))
+
+Optional:
+
+- `ipv6` (Block) IPv6 address information (see [below for nested schema](#nestedblock--ip))
+
+
+<a id="nestedblock--ip"></a>
+### Nested Schema for `ip`
+
+Required:
+
+- `address` (String)
+- `netmask` (String)
+
+Optional:
+
+- `gateway` (String)
 
 ## Import
 
